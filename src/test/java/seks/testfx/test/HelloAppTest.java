@@ -20,8 +20,8 @@ public class HelloAppTest extends ApplicationTest {
   }
 
   @Test
-  public void should_display_hello_message() {
-    logger.info("should_display_hello_message");
+  public void shouldDisplayWelcomeMessage() {
+    logger.info("shouldDisplayWelcomeMessage");
 
     verifyThat("#welcomeText", hasText(""));
 
