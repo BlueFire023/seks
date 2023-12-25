@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seks.testfx.main.MainController">
+    <children>
+        <Button fx:id="helloButton" layoutX="401.0" layoutY="85.0" onAction="#onHelloButton" text="Hello!" />
+
+        <Label fx:id="welcomeLabel" layoutX="369.0" layoutY="60.0" prefHeight="17.0" prefWidth="113.0" text="WelcomeLabel" />
+        <ListView fx:id="ingredientListView" editable="true" layoutX="201.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" />
+        <ListView fx:id="pizzaListView" editable="true" layoutX="449.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" />
+        <Label layoutX="201.0" layoutY="183.0" text="Verfügbare Zutaten:" />
+        <Label layoutX="449.0" layoutY="183.0" text="Pizza:" />
+    </children>
+</AnchorPane>

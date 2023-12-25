@@ -8,27 +8,27 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testfx.framework.junit5.ApplicationTest;
-import seks.testfx.seks.HelloApplication;
+import seks.testfx.main.Main;
 
-public class HelloAppTest extends ApplicationTest {
-  private static final Logger logger = LoggerFactory.getLogger(HelloAppTest.class);
+public class AppTest extends ApplicationTest {
+  private static final Logger logger = LoggerFactory.getLogger(AppTest.class);
 
   @Override
   public void start(Stage stage) throws Exception {
-    logger.info("Starting HelloApplication...");
-    new HelloApplication().start(stage);
+    logger.info("Starting Main...");
+    new Main().start(stage);
   }
 
   @Test
   public void shouldDisplayWelcomeMessage() {
     logger.info("shouldDisplayWelcomeMessage");
 
-    verifyThat("#welcomeText", hasText(""));
+    verifyThat("#welcomeLabel", hasText(""));
 
     // simulate a user interaction
     clickOn("#helloButton");
 
     // verify that the label's text has changed
-    verifyThat("#welcomeText", hasText("Welcome to JavaFX Application!"));
+    verifyThat("#welcomeLabel", hasText("Welcome to the Pizza constructor!"));
   }
 }
