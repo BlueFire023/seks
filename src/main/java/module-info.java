@@ -4,6 +4,7 @@ open module seks.testfx.main {
   requires org.slf4j;
   requires testfx.junit5;
   requires testfx.core;
+  requires com.google.gson;
 
   exports seks.testfx.main;
 }

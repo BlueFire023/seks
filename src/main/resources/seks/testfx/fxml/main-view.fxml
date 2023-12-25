@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seks.testfx.main.MainController">
     <children>
-        <Button fx:id="helloButton" layoutX="401.0" layoutY="85.0" onAction="#onHelloButton" text="Hello!" />
+        <Button fx:id="helloButton" layoutX="401.0" layoutY="40.0" onAction="#onHelloButton" text="Hello!" />
 
-        <Label fx:id="welcomeLabel" layoutX="369.0" layoutY="60.0" prefHeight="17.0" prefWidth="113.0" text="WelcomeLabel" />
-        <ListView fx:id="ingredientListView" editable="true" layoutX="201.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" />
-        <ListView fx:id="pizzaListView" editable="true" layoutX="449.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" />
-        <Label layoutX="201.0" layoutY="183.0" text="Verfügbare Zutaten:" />
-        <Label layoutX="449.0" layoutY="183.0" text="Pizza:" />
+        <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="307.0" layoutY="23.0" prefHeight="17.0" prefWidth="237.0" text="WelcomeLabel" />
+        <ListView fx:id="ingredientListView" editable="true" layoutX="201.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" />
+        <ListView fx:id="pizzaListView" editable="true" layoutX="449.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" />
+        <Label layoutX="201.0" layoutY="83.0" text="Available Ingredients:" />
+        <Label layoutX="449.0" layoutY="83.0" text="Pizza:" />
+      <RadioButton fx:id="size32RadioButton" layoutX="69.0" layoutY="411.0" mnemonicParsing="false" text="32cm" />
+      <RadioButton fx:id="size26RadioButton" layoutX="69.0" layoutY="428.0" mnemonicParsing="false" text="26cm" />
+      <RadioButton fx:id="size20RadioButton" layoutX="69.0" layoutY="445.0" mnemonicParsing="false" text="20cm" />
+      <Button layoutX="649.0" layoutY="275.0" mnemonicParsing="false" onAction="#onXButton" text="X" fx:id="xButton" />
+      <Label layoutX="69.0" layoutY="378.0" text="Size:" />
+      <CheckBox fx:id="cheeseCheckBox" layoutX="180.0" layoutY="411.0" mnemonicParsing="false" text="with cheese crust" />
+      <Label layoutX="182.0" layoutY="378.0" text="Extras:" />
+      <CheckBox fx:id="doubleCheckBox" layoutX="180.0" layoutY="428.0" mnemonicParsing="false" text="with double coating" />
+      <CheckBox fx:id="kebabCheckBox" layoutX="180.0" layoutY="445.0" mnemonicParsing="false" text="with kebab sauce" />
+      <TextArea fx:id="resultTextArea" layoutX="401.0" layoutY="331.0" prefHeight="248.0" prefWidth="428.0" />
+      <Label layoutX="401.0" layoutY="314.0" text="Result:" />
+      <Button layoutX="785.0" layoutY="554.0" mnemonicParsing="false" onAction="#onCopyButton" text="Copy" />
     </children>
 </AnchorPane>
