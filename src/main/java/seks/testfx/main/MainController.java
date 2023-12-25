@@ -53,83 +53,87 @@ public class MainController {
             "Salami", "Olives");
     // Set up drag and drop for ingredientListView
     ingredientListView.setOnDragDetected(event -> {
+      logger.info("ingredientListView.setOnDragDetected");
       String ingredient = ingredientListView.getSelectionModel().getSelectedItem();
       if (ingredient != null) {
+        logger.info("Selected item: {}", ingredient);
         Dragboard dragboard = ingredientListView.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.putString(ingredient);
         dragboard.setContent(content);
         event.consume();
       }
-      generateJSON();
     });
 
     ingredientListView.setOnDragOver(event -> {
       if (event.getGestureSource() != ingredientListView && event.getDragboard().hasString()) {
         event.acceptTransferModes(TransferMode.MOVE);
       }
-      generateJSON();
       event.consume();
     });
 
     ingredientListView.setOnDragDropped(event -> {
+      logger.info("ingredientListView.setOnDragDropped");
       Dragboard dragboard = event.getDragboard();
       if (dragboard.hasString()) {
+        logger.info("Dragged item: {}", dragboard.getString());
         ingredientListView.getItems().add(dragboard.getString());
+        generateJSON();
         event.setDropCompleted(true);
       } else {
         event.setDropCompleted(false);
       }
-      generateJSON();
       event.consume();
     });
 
     ingredientListView.setOnDragDone(event -> {
+      logger.info("ingredientListView.setOnDragDone");
       if (event.getTransferMode() == TransferMode.MOVE) {
         ingredientListView.getItems()
             .remove(ingredientListView.getSelectionModel().getSelectedItem());
       }
-      generateJSON();
     });
 
     // Set up drag and drop for pizzaListView
     pizzaListView.setOnDragDetected(event -> {
+      logger.info("pizzaListView.setOnDragDetected");
       String ingredient = pizzaListView.getSelectionModel().getSelectedItem();
       if (ingredient != null) {
+        logger.info("Selected item: {}", ingredient);
         Dragboard dragboard = pizzaListView.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.putString(ingredient);
         dragboard.setContent(content);
         event.consume();
       }
-      generateJSON();
     });
 
     pizzaListView.setOnDragOver(event -> {
       if (event.getGestureSource() != pizzaListView && event.getDragboard().hasString()) {
         event.acceptTransferModes(TransferMode.MOVE);
       }
-      generateJSON();
       event.consume();
     });
 
     pizzaListView.setOnDragDropped(event -> {
+      logger.info("pizzaListView.setOnDragDropped");
       Dragboard dragboard = event.getDragboard();
       if (dragboard.hasString()) {
+        logger.info("Dragged item: {}", dragboard.getString());
         pizzaListView.getItems().add(dragboard.getString());
         event.setDropCompleted(true);
+        generateJSON();
       } else {
         event.setDropCompleted(false);
       }
-      generateJSON();
       event.consume();
     });
 
     pizzaListView.setOnDragDone(event -> {
+      logger.info("pizzaListView.setOnDragDone");
       if (event.getTransferMode() == TransferMode.MOVE) {
         pizzaListView.getItems().remove(pizzaListView.getSelectionModel().getSelectedItem());
       }
-      generateJSON();
     });
 
     // Set up radio buttons
@@ -139,13 +143,31 @@ public class MainController {
 
     size26RadioButton.setSelected(true);
 
-    size26RadioButton.setOnAction(event -> generateJSON());
-    size32RadioButton.setOnAction(event -> generateJSON());
-    size20RadioButton.setOnAction(event -> generateJSON());
+    size26RadioButton.setOnAction(event -> {
+      logger.info("size26RadioButton pressed");
+      generateJSON();
+    });
+    size32RadioButton.setOnAction(event -> {
+      logger.info("size32RadioButton pressed");
+      generateJSON();
+    });
+    size20RadioButton.setOnAction(event -> {
+      logger.info("size20RadioButton pressed");
+      generateJSON();
+    });
 
-    cheeseCheckBox.setOnAction(event -> generateJSON());
-    doubleCheckBox.setOnAction(event -> generateJSON());
-    kebabCheckBox.setOnAction(event -> generateJSON());
+    cheeseCheckBox.setOnAction(event -> {
+      logger.info("cheeseCheckBox pressed");
+      generateJSON();
+    });
+    doubleCheckBox.setOnAction(event -> {
+      logger.info("doubleCheckBox pressed");
+      generateJSON();
+    });
+    kebabCheckBox.setOnAction(event -> {
+      logger.info("kebabCheckBox pressed");
+      generateJSON();
+    });
     generateJSON();
   }
 
@@ -175,7 +197,7 @@ public class MainController {
   }
 
   public void generateJSON() {
-    logger.info("onGenerateButton");
+    logger.info("generateJSON");
     Map<String, Object> pizza = new HashMap<>();
 
     // Add the size to the Map
@@ -187,10 +209,10 @@ public class MainController {
       pizza.put("size", "20cm");
     }
 
-    // Add the cheese, double cheese, and kebab options to the Map
-    pizza.put("cheese", cheeseCheckBox.isSelected());
-    pizza.put("doubleCheese", doubleCheckBox.isSelected());
-    pizza.put("kebab", kebabCheckBox.isSelected());
+    // Add the cheese, double toppings, and kebab options to the Map
+    pizza.put("cheese crust", cheeseCheckBox.isSelected());
+    pizza.put("double toppings", doubleCheckBox.isSelected());
+    pizza.put("kebab sauce", kebabCheckBox.isSelected());
 
     // Add the ingredients from the pizzaListView to the Map
     pizza.put("ingredients", new ArrayList<>(pizzaListView.getItems()));

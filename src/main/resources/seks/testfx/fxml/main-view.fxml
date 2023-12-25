@@ -24,10 +24,10 @@
       <Label layoutX="69.0" layoutY="378.0" text="Size:" />
       <CheckBox fx:id="cheeseCheckBox" layoutX="180.0" layoutY="411.0" mnemonicParsing="false" text="with cheese crust" />
       <Label layoutX="182.0" layoutY="378.0" text="Extras:" />
-      <CheckBox fx:id="doubleCheckBox" layoutX="180.0" layoutY="428.0" mnemonicParsing="false" text="with double coating" />
+      <CheckBox fx:id="doubleCheckBox" layoutX="180.0" layoutY="428.0" mnemonicParsing="false" text="with double toppings" />
       <CheckBox fx:id="kebabCheckBox" layoutX="180.0" layoutY="445.0" mnemonicParsing="false" text="with kebab sauce" />
       <TextArea fx:id="resultTextArea" layoutX="401.0" layoutY="331.0" prefHeight="248.0" prefWidth="428.0" />
       <Label layoutX="401.0" layoutY="314.0" text="Result:" />
-      <Button layoutX="785.0" layoutY="554.0" mnemonicParsing="false" onAction="#onCopyButton" text="Copy" />
+      <Button fx:id="copyButton" layoutX="785.0" layoutY="554.0" mnemonicParsing="false" onAction="#onCopyButton" text="Copy" />
     </children>
 </AnchorPane>
