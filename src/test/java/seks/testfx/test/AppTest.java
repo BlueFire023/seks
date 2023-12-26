@@ -2,10 +2,13 @@ package seks.testfx.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.Clipboard;
 import javafx.stage.Stage;
@@ -178,5 +181,54 @@ public class AppTest extends ApplicationTest {
 
     verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
     verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
+  }
+
+  @Test
+  @DisplayName("Should give error message when order button is clicked without the required fields filled")
+  public void shouldGiveErrorMessageWhenOrderButtonClickedWithoutRequiredFieldsFilled() {
+    logger.info("shouldGiveErrorMessageWhenOrderButtonClickedWithoutRequiredFieldsFilled");
+    clickOn("#orderButton");
+
+    DialogPane dialogPane = lookup(".dialog-pane").queryAs(DialogPane.class);
+    String alertText = dialogPane.getContentText();
+
+    assertEquals("Please fill in all the fields!", alertText);
+  }
+
+  @Test
+  @DisplayName("Should order pizza when order button is clicked with all the required fields filled")
+  public void shouldOrderPizzaWhenOrderButtonClickedWithAllRequiredFieldsFilled() {
+    logger.info("shouldOrderPizzaWhenOrderButtonClickedWithAllRequiredFieldsFilled");
+    clickOn("#nameTextField").write("Test");
+    clickOn("#zipcodeTextField").write("12345");
+    clickOn("#streetTextField").write("Test");
+    clickOn("#houseNumberTextField").write("1");
+    clickOn("#orderButton");
+
+    DialogPane dialogPane = lookup(".dialog-pane").queryAs(DialogPane.class);
+    String alertText = dialogPane.getContentText();
+
+    assertEquals("Your order has been placed!", alertText);
+  }
+
+  @Test
+  @DisplayName("Should increase pizza count when spinner is clicked")
+  public void shouldIncreasePizzaCountWhenSpinnerClicked() {
+    logger.info("shouldIncreasePizzaCountWhenSpinnerClicked");
+    int count = 6;
+
+    // Get the node
+    Node node = lookup("#countSpinner").query();
+
+    // Get the screen coordinates of the top left corner of the node
+    Point2D topRightCorner = node.localToScreen(node.getBoundsInLocal().getWidth(), 0);
+
+    moveTo(topRightCorner);
+
+    for (int i = 0; i < count - 1; i++) {
+      clickOn();
+    }
+
+    assertEquals(count, lookup("#countSpinner").queryAs(Spinner.class).getValue());
   }
 }
