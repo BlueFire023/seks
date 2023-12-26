@@ -100,21 +100,21 @@ public class AppTest extends ApplicationTest {
 
     assertEquals(expectedJson, lookup("#resultTextArea").queryAs(TextArea.class).getText());
 
-    clickOn("#size32RadioButton");
+    clickOn("#size20RadioButton");
     clickOn("#cheeseCheckBox");
     clickOn("#doubleCheckBox");
     clickOn("#kebabCheckBox");
 
     expectedJson = """
         {
-          "size": "32cm",
+          "size": "20cm",
           "double toppings": true,
           "kebab sauce": true,
           "ingredients": [
             "Pineapple",
             "Salami"
           ],
-          "cheese crust": true
+          "cheese crust": false
         }""";
 
     assertEquals(expectedJson, lookup("#resultTextArea").queryAs(TextArea.class).getText());
@@ -146,6 +146,9 @@ public class AppTest extends ApplicationTest {
     logger.info("testMoveIngredientsBack");
     drag("Pineapple").interact(() -> dropTo("#pizzaListView"));
     drag("Salami").interact(() -> dropTo("#pizzaListView"));
+
+    verifyThat("#pizzaListView", ListViewMatchers.hasItems(2));
+    verifyThat("#ingredientListView", ListViewMatchers.hasItems(8));
 
     drag("Pineapple").interact(() -> dropTo("#ingredientListView"));
     drag("Salami").interact(() -> dropTo("#ingredientListView"));
