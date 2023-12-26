@@ -257,7 +257,6 @@ public class MainController {
       alert.setHeaderText("Error");
       alert.setContentText("Please fill in all the fields!");
       alert.showAndWait();
-      return;
     } else {
       Alert alert = new Alert(Alert.AlertType.INFORMATION);
       alert.setTitle("Order");
