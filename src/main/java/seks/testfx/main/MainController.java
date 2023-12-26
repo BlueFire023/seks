@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 public class MainController {
   private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+  ToggleGroup toggleGroup = new ToggleGroup();
   @FXML
   private Label welcomeLabel;
   @FXML
@@ -33,8 +34,6 @@ public class MainController {
   private RadioButton size26RadioButton;
   @FXML
   private RadioButton size20RadioButton;
-  ToggleGroup toggleGroup = new ToggleGroup();
-
   @FXML
   private CheckBox cheeseCheckBox;
   @FXML
