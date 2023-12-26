@@ -27,18 +27,6 @@ public class AppTest extends ApplicationTest {
   }
 
   @Test
-  @DisplayName("Test welcome message")
-  public void shouldDisplayWelcomeMessage() {
-    logger.info("shouldDisplayWelcomeMessage");
-
-    verifyThat("#welcomeLabel", hasText(""));
-
-    clickOn("#helloButton");
-
-    verifyThat("#welcomeLabel", hasText("Welcome to the Pizza constructor!"));
-  }
-
-  @Test
   @DisplayName("Should clear pizza list when clear button is clicked")
   public void shouldClearPizzaListWhenClearButtonClicked() {
     logger.info("shouldClearPizzaListWhenClearButtonClicked");

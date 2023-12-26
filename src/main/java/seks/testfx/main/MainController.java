@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -22,8 +26,6 @@ import org.slf4j.LoggerFactory;
 public class MainController {
   private static final Logger logger = LoggerFactory.getLogger(MainController.class);
   ToggleGroup toggleGroup = new ToggleGroup();
-  @FXML
-  private Label welcomeLabel;
   @FXML
   private ListView<String> ingredientListView;
   @FXML
@@ -42,10 +44,20 @@ public class MainController {
   private CheckBox kebabCheckBox;
   @FXML
   private TextArea resultTextArea;
-
+  @FXML
+  private TextField nameTextField;
+  @FXML
+  private TextField zipcodeTextField;
+  @FXML
+  private TextField houseNumberTextField;
+  @FXML
+  private TextField streetTextField;
+  @FXML
+  private Spinner<Integer> countSpinner;
+  @FXML
+  private Label priceLabel;
 
   public void initialize() {
-    welcomeLabel.setText("");
     //add draggable items to the ingredient list
     ingredientListView.getItems()
         .addAll("Tomato", "Cheese", "Ham", "Mushrooms", "Pineapple", "Pepperoni", "Onion", "Bacon",
@@ -78,6 +90,7 @@ public class MainController {
         logger.info("Dragged item: {}", dragboard.getString());
         ingredientListView.getItems().add(dragboard.getString());
         generatePizzaJson();
+        updatePriceLabel();
         event.setDropCompleted(true);
       } else {
         event.setDropCompleted(false);
@@ -121,6 +134,7 @@ public class MainController {
         logger.info("Dragged item: {}", dragboard.getString());
         pizzaListView.getItems().add(dragboard.getString());
         event.setDropCompleted(true);
+        updatePriceLabel();
         generatePizzaJson();
       } else {
         event.setDropCompleted(false);
@@ -144,39 +158,72 @@ public class MainController {
 
     size26RadioButton.setOnAction(event -> {
       logger.info("size26RadioButton pressed");
+      updatePriceLabel();
       generatePizzaJson();
     });
     size32RadioButton.setOnAction(event -> {
       logger.info("size32RadioButton pressed");
+      updatePriceLabel();
       generatePizzaJson();
     });
     size20RadioButton.setOnAction(event -> {
       logger.info("size20RadioButton pressed");
+      updatePriceLabel();
       generatePizzaJson();
     });
 
     cheeseCheckBox.setOnAction(event -> {
       logger.info("cheeseCheckBox pressed");
+      updatePriceLabel();
       generatePizzaJson();
     });
     doubleCheckBox.setOnAction(event -> {
       logger.info("doubleCheckBox pressed");
+      updatePriceLabel();
       generatePizzaJson();
     });
     kebabCheckBox.setOnAction(event -> {
       logger.info("kebabCheckBox pressed");
+      updatePriceLabel();
       generatePizzaJson();
     });
 
     resultTextArea.setEditable(false);
+
+    countSpinner.setValueFactory(
+        new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9, 1, 1));
+
+    countSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+      logger.info("countSpinner value changed");
+      updatePriceLabel();
+      generatePizzaJson();
+    });
+
+    // Set up price label
+    priceLabel.setText("7.50€");
+
+    // Set up text fields
+    nameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+      logger.info("nameTextField text changed");
+      generatePizzaJson();
+    });
+
+    zipcodeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+      logger.info("zipcodeTextField text changed");
+      generatePizzaJson();
+    });
+
+    houseNumberTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+      logger.info("houseNumberTextField text changed");
+      generatePizzaJson();
+    });
+
+    streetTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+      logger.info("streetTextField text changed");
+      generatePizzaJson();
+    });
+
     generatePizzaJson();
-  }
-
-
-  @FXML
-  public void onHelloButton() {
-    logger.info("onHelloButton");
-    welcomeLabel.setText("Welcome to the Pizza constructor!");
   }
 
   @FXML
@@ -197,6 +244,16 @@ public class MainController {
     ClipboardContent content = new ClipboardContent();
     content.putString(json);
     clipboard.setContent(content);
+  }
+
+  @FXML
+  public void onOrderButton(){
+    logger.info("onOrderButton");
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Order");
+    alert.setHeaderText("Order placed");
+    alert.setContentText("Your order has been placed!");
+    alert.showAndWait();
   }
 
   public void generatePizzaJson() {
@@ -220,6 +277,18 @@ public class MainController {
     // Add the ingredients from the pizzaListView to the Map
     pizza.put("ingredients", new ArrayList<>(pizzaListView.getItems()));
 
+    // Add the name, zipcode, house number, and street to the Map
+    pizza.put("name", nameTextField.getText());
+    pizza.put("zipcode", zipcodeTextField.getText());
+    pizza.put("house number", houseNumberTextField.getText());
+    pizza.put("street", streetTextField.getText());
+
+    // Add the count to the Map
+    pizza.put("count", countSpinner.getValue());
+
+    // Add the price to the Map
+    pizza.put("price", priceLabel.getText());
+
     // Create a Gson object
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -228,5 +297,30 @@ public class MainController {
 
     // Set the text of the resultTextArea to the JSON string
     resultTextArea.setText(json);
+  }
+
+  private void updatePriceLabel() {
+    logger.info("setPriceLabel");
+    double price = 7.50;
+    double ingrendientMultiplier = 1.00;
+    if (size32RadioButton.isSelected()) {
+      ingrendientMultiplier = 1.50;
+      price += 2.50;
+    } else if (size20RadioButton.isSelected()) {
+        ingrendientMultiplier = 0.50;
+      price -= 2.50;
+    }
+    if (doubleCheckBox.isSelected()) {
+      price += 2.00;
+    }
+    if(kebabCheckBox.isSelected()) {
+      price += 2.00;
+    }
+    if(cheeseCheckBox.isSelected()) {
+      price += 2.00;
+    }
+    price += pizzaListView.getItems().size() * ingrendientMultiplier;
+    price *= countSpinner.getValue();
+    priceLabel.setText(price + "€");
   }
 }
