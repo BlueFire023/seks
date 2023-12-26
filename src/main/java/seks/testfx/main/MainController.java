@@ -191,7 +191,7 @@ public class MainController {
     resultTextArea.setEditable(false);
 
     countSpinner.setValueFactory(
-        new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9, 1, 1));
+        new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1, 1));
 
     countSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
       logger.info("countSpinner value changed");
@@ -232,6 +232,7 @@ public class MainController {
     if (!pizzaListView.getItems().isEmpty()) {
       ingredientListView.getItems().addAll(pizzaListView.getItems());
       pizzaListView.getItems().clear();
+      updatePriceLabel();
       generatePizzaJson();
     }
   }
