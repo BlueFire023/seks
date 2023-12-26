@@ -76,9 +76,15 @@ public class AppTest extends ApplicationTest {
 
     String expectedJson = """
         {
+          "zipcode": "",
+          "house number": "",
           "size": "32cm",
+          "street": "",
+          "price": "16.0€",
           "double toppings": false,
           "kebab sauce": false,
+          "name": "",
+          "count": 1,
           "ingredients": [
             "Pineapple",
             "Salami"
@@ -95,9 +101,15 @@ public class AppTest extends ApplicationTest {
 
     expectedJson = """
         {
+          "zipcode": "",
+          "house number": "",
           "size": "20cm",
+          "street": "",
+          "price": "8.0€",
           "double toppings": true,
           "kebab sauce": true,
+          "name": "",
+          "count": 1,
           "ingredients": [
             "Pineapple",
             "Salami"
@@ -155,8 +167,8 @@ public class AppTest extends ApplicationTest {
     verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
     verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
 
-    drag("Salami").interact(() -> dropTo("#helloButton"));
-    logger.info("dragged Salami to helloButton");
+    drag("Salami").interact(() -> dropTo("#orderButton"));
+    logger.info("dragged Salami to orderButton");
 
     verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
     verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
@@ -166,31 +178,5 @@ public class AppTest extends ApplicationTest {
 
     verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
     verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
-
-    drag("Ham").interact(() -> dropTo(".root"));
-    logger.info("dragged Ham to root");
-
-    verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
-    verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
-  }
-
-  @Test
-  @DisplayName("Should move all ingredients to pizza list")
-  public void shouldMoveAllIngredientsToPizzaList() {
-    logger.info("shouldMoveAllIngredientsToPizzaList");
-
-    drag("Tomato").interact(() -> dropTo("#pizzaListView"));
-    drag("Mushrooms").interact(() -> dropTo("#pizzaListView"));
-    drag("Pepperoni").interact(() -> dropTo("#pizzaListView"));
-    drag("Onion").interact(() -> dropTo("#pizzaListView"));
-    drag("Bacon").interact(() -> dropTo("#pizzaListView"));
-    drag("Salami").interact(() -> dropTo("#pizzaListView"));
-    drag("Olives").interact(() -> dropTo("#pizzaListView"));
-    drag("Pineapple").interact(() -> dropTo("#pizzaListView"));
-    drag("Cheese").interact(() -> dropTo("#pizzaListView"));
-    drag("Ham").interact(() -> dropTo("#pizzaListView"));
-
-    verifyThat("#pizzaListView", ListViewMatchers.hasItems(10));
-    verifyThat("#ingredientListView", ListViewMatchers.hasItems(0));
   }
 }

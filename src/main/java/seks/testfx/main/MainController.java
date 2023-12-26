@@ -89,8 +89,6 @@ public class MainController {
       if (dragboard.hasString()) {
         logger.info("Dragged item: {}", dragboard.getString());
         ingredientListView.getItems().add(dragboard.getString());
-        generatePizzaJson();
-        updatePriceLabel();
         event.setDropCompleted(true);
       } else {
         event.setDropCompleted(false);
@@ -104,6 +102,8 @@ public class MainController {
         ingredientListView.getItems()
             .remove(ingredientListView.getSelectionModel().getSelectedItem());
       }
+      updatePriceLabel();
+      generatePizzaJson();
     });
 
     // Set up drag and drop for pizzaListView
@@ -134,8 +134,6 @@ public class MainController {
         logger.info("Dragged item: {}", dragboard.getString());
         pizzaListView.getItems().add(dragboard.getString());
         event.setDropCompleted(true);
-        updatePriceLabel();
-        generatePizzaJson();
       } else {
         event.setDropCompleted(false);
       }
@@ -147,6 +145,8 @@ public class MainController {
       if (event.getTransferMode() == TransferMode.MOVE) {
         pizzaListView.getItems().remove(pizzaListView.getSelectionModel().getSelectedItem());
       }
+      updatePriceLabel();
+      generatePizzaJson();
     });
 
     // Set up radio buttons
@@ -250,11 +250,21 @@ public class MainController {
   @FXML
   public void onOrderButton() {
     logger.info("onOrderButton");
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Order");
-    alert.setHeaderText("Order placed");
-    alert.setContentText("Your order has been placed!");
-    alert.showAndWait();
+    if (nameTextField.getText().isEmpty() || zipcodeTextField.getText().isEmpty() ||
+        houseNumberTextField.getText().isEmpty() || streetTextField.getText().isEmpty()) {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("Error");
+      alert.setContentText("Please fill in all the fields!");
+      alert.showAndWait();
+      return;
+    } else {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Order");
+      alert.setHeaderText("Order placed");
+      alert.setContentText("Your order has been placed!");
+      alert.showAndWait();
+    }
   }
 
   public void generatePizzaJson() {
