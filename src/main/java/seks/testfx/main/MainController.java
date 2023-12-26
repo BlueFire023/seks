@@ -168,6 +168,8 @@ public class MainController {
       logger.info("kebabCheckBox pressed");
       generateJSON();
     });
+
+    resultTextArea.setEditable(false);
     generateJSON();
   }
 
@@ -181,9 +183,11 @@ public class MainController {
   @FXML
   public void onXButton() {
     logger.info("onXButton");
-    ingredientListView.getItems().addAll(pizzaListView.getItems());
-    pizzaListView.getItems().clear();
-    generateJSON();
+    if (!pizzaListView.getItems().isEmpty()) {
+      ingredientListView.getItems().addAll(pizzaListView.getItems());
+      pizzaListView.getItems().clear();
+      generateJSON();
+    }
   }
 
   @FXML
