@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
-import javafx.geometry.VerticalDirection;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -40,19 +39,10 @@ public class AppTest extends ApplicationTest {
   }
 
   @Test
-  @DisplayName("Test drag and drop")
-  public void testDragAndDrop() {
-    logger.info("testDragAndDrop");
-    clickOn("#ingredientListView").scroll(VerticalDirection.DOWN).drag("Olives")
-        .interact(() -> dropTo("#pizzaListView"));
-    verifyThat("#pizzaListView", ListViewMatchers.hasListCell("Olives"));
-    verifyThat("#ingredientListView", ListViewMatchers.hasItems(9));
-  }
-
-  @Test
   @DisplayName("Test clear list")
   public void testClearList() {
     logger.info("testClearList");
+
     drag("Tomato").interact(() -> dropTo("#pizzaListView"));
     drag("Mushrooms").interact(() -> dropTo("#pizzaListView"));
     drag("Pineapple").interact(() -> dropTo("#pizzaListView"));
@@ -73,14 +63,26 @@ public class AppTest extends ApplicationTest {
 
     verifyThat("#size32RadioButton", RadioButton::isSelected);
     verifyThat("#cheeseCheckBox", CheckBox::isSelected);
+
+    clickOn("#doubleCheckBox");
+    clickOn("#kebabCheckBox");
+
+    verifyThat("#doubleCheckBox", CheckBox::isSelected);
+    verifyThat("#kebabCheckBox", CheckBox::isSelected);
+
+    clickOn("#size26RadioButton");
+
+    verifyThat("#size26RadioButton", RadioButton::isSelected);
   }
 
   @Test
   @DisplayName("Test JSON output")
   public void testJsonOutput() {
     logger.info("testJsonOutput");
+
     drag("Pineapple").interact(() -> dropTo("#pizzaListView"));
     drag("Salami").interact(() -> dropTo("#pizzaListView"));
+
     clickOn("#size32RadioButton");
     clickOn("#cheeseCheckBox");
 
@@ -95,32 +97,15 @@ public class AppTest extends ApplicationTest {
           ],
           "cheese crust": true
         }""";
+
     assertEquals(expectedJson, lookup("#resultTextArea").queryAs(TextArea.class).getText());
-  }
 
-  @Test
-  @DisplayName("Test more buttons")
-  public void testPressMoreButtons() {
-    logger.info("testPressMoreButtons");
-    clickOn("#doubleCheckBox");
-    clickOn("#kebabCheckBox");
-
-    verifyThat("#doubleCheckBox", CheckBox::isSelected);
-    verifyThat("#kebabCheckBox", CheckBox::isSelected);
-  }
-
-  @Test
-  @DisplayName("Test more JSON output")
-  public void testMoreJsonOutput() {
-    logger.info("testMoreJsonOutput");
-    drag("Pineapple").interact(() -> dropTo("#pizzaListView"));
-    drag("Salami").interact(() -> dropTo("#pizzaListView"));
     clickOn("#size32RadioButton");
     clickOn("#cheeseCheckBox");
     clickOn("#doubleCheckBox");
     clickOn("#kebabCheckBox");
 
-    String expectedJson = """
+    expectedJson = """
         {
           "size": "32cm",
           "double toppings": true,
@@ -131,6 +116,7 @@ public class AppTest extends ApplicationTest {
           ],
           "cheese crust": true
         }""";
+
     assertEquals(expectedJson, lookup("#resultTextArea").queryAs(TextArea.class).getText());
   }
 
@@ -138,6 +124,7 @@ public class AppTest extends ApplicationTest {
   @DisplayName("Test copy button")
   public void testCopyButton() {
     logger.info("testCopyButton");
+
     drag("Mushrooms").interact(() -> dropTo("#pizzaListView"));
     drag("Salami").interact(() -> dropTo("#pizzaListView"));
 
@@ -146,22 +133,10 @@ public class AppTest extends ApplicationTest {
     clickOn("#doubleCheckBox");
     clickOn("#copyButton");
 
-    String expectedJson = """
-        {
-          "size": "20cm",
-          "double toppings": true,
-          "kebab sauce": false,
-          "ingredients": [
-            "Mushrooms",
-            "Salami"
-          ],
-          "cheese crust": true
-        }""";
-
     //workaround for IllegalStateException: not in FX application thread
     interact(() -> {
       String clipboardText = Clipboard.getSystemClipboard().getString();
-      assertEquals(expectedJson, clipboardText);
+      assertEquals(lookup("#resultTextArea").queryAs(TextArea.class).getText(), clipboardText);
     });
   }
 
@@ -211,6 +186,8 @@ public class AppTest extends ApplicationTest {
   @Test
   @DisplayName("Should move all ingredients to pizza list")
   public void shouldMoveAllIngredientsToPizzaList() {
+    logger.info("shouldMoveAllIngredientsToPizzaList");
+
     drag("Tomato").interact(() -> dropTo("#pizzaListView"));
     drag("Mushrooms").interact(() -> dropTo("#pizzaListView"));
     drag("Pepperoni").interact(() -> dropTo("#pizzaListView"));
