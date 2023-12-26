@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -20,6 +21,9 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.paint.Color;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.javafx.FontIcon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,6 +60,8 @@ public class MainController {
   private Spinner<Integer> countSpinner;
   @FXML
   private Label priceLabel;
+  @FXML
+  private Button xButton;
 
   public void initialize() {
     //add draggable items to the ingredient list
@@ -222,6 +228,11 @@ public class MainController {
       logger.info("streetTextField text changed");
       generatePizzaJson();
     });
+
+    FontIcon icon = new FontIcon(FontAwesomeSolid.TIMES);
+    icon.setIconSize(18);
+    icon.setIconColor(Color.RED);
+    xButton.setGraphic(icon);
 
     generatePizzaJson();
   }
