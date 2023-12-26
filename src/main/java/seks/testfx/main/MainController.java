@@ -77,7 +77,7 @@ public class MainController {
       if (dragboard.hasString()) {
         logger.info("Dragged item: {}", dragboard.getString());
         ingredientListView.getItems().add(dragboard.getString());
-        generateJSON();
+        generatePizzaJson();
         event.setDropCompleted(true);
       } else {
         event.setDropCompleted(false);
@@ -121,7 +121,7 @@ public class MainController {
         logger.info("Dragged item: {}", dragboard.getString());
         pizzaListView.getItems().add(dragboard.getString());
         event.setDropCompleted(true);
-        generateJSON();
+        generatePizzaJson();
       } else {
         event.setDropCompleted(false);
       }
@@ -144,32 +144,32 @@ public class MainController {
 
     size26RadioButton.setOnAction(event -> {
       logger.info("size26RadioButton pressed");
-      generateJSON();
+      generatePizzaJson();
     });
     size32RadioButton.setOnAction(event -> {
       logger.info("size32RadioButton pressed");
-      generateJSON();
+      generatePizzaJson();
     });
     size20RadioButton.setOnAction(event -> {
       logger.info("size20RadioButton pressed");
-      generateJSON();
+      generatePizzaJson();
     });
 
     cheeseCheckBox.setOnAction(event -> {
       logger.info("cheeseCheckBox pressed");
-      generateJSON();
+      generatePizzaJson();
     });
     doubleCheckBox.setOnAction(event -> {
       logger.info("doubleCheckBox pressed");
-      generateJSON();
+      generatePizzaJson();
     });
     kebabCheckBox.setOnAction(event -> {
       logger.info("kebabCheckBox pressed");
-      generateJSON();
+      generatePizzaJson();
     });
 
     resultTextArea.setEditable(false);
-    generateJSON();
+    generatePizzaJson();
   }
 
 
@@ -185,7 +185,7 @@ public class MainController {
     if (!pizzaListView.getItems().isEmpty()) {
       ingredientListView.getItems().addAll(pizzaListView.getItems());
       pizzaListView.getItems().clear();
-      generateJSON();
+      generatePizzaJson();
     }
   }
 
@@ -199,8 +199,8 @@ public class MainController {
     clipboard.setContent(content);
   }
 
-  public void generateJSON() {
-    logger.info("generateJSON");
+  public void generatePizzaJson() {
+    logger.info("generatePizzaJson");
     Map<String, Object> pizza = new HashMap<>();
 
     // Add the size to the Map
