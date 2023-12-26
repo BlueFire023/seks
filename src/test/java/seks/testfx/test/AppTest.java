@@ -169,11 +169,9 @@ public class AppTest extends ApplicationTest {
   @DisplayName("Test moving ingredients back")
   public void testMoveIngredientsBack() {
     logger.info("testMoveIngredientsBack");
-    // First, move some items to the pizzaListView
     drag("Pineapple").interact(() -> dropTo("#pizzaListView"));
     drag("Salami").interact(() -> dropTo("#pizzaListView"));
 
-    // Then, move them back to the ingredientListView
     drag("Pineapple").interact(() -> dropTo("#ingredientListView"));
     drag("Salami").interact(() -> dropTo("#ingredientListView"));
 
@@ -185,13 +183,28 @@ public class AppTest extends ApplicationTest {
   @DisplayName("Test invalid operations")
   public void testInvalidOperations() {
     logger.info("testInvalidOperations");
-    drag("#pizzaListView");
+    drag("Pineapple").interact(() -> dropTo("#xButton"));
+    logger.info("dragged Pineapple to xButton");
 
     verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
+    verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
 
-    clickOn("#size32RadioButton");
-    clickOn("#size26RadioButton");
+    drag("Salami").interact(() -> dropTo("#helloButton"));
+    logger.info("dragged Salami to helloButton");
 
-    verifyThat("#size26RadioButton", RadioButton::isSelected);
+    verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
+    verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
+
+    drag("Mushrooms").interact(() -> dropTo("#resultTextArea"));
+    logger.info("dragged Mushrooms to resultTextArea");
+
+    verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
+    verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
+
+    drag("Ham").interact(() -> dropTo(".root"));
+    logger.info("dragged Ham to root");
+
+    verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
+    verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
   }
 }
