@@ -41,7 +41,7 @@ public class AppTest extends ApplicationTest {
   @Test
   @DisplayName("Should clear pizza list when clear button is clicked")
   public void shouldClearPizzaListWhenClearButtonClicked() {
-    logger.info("testClearList");
+    logger.info("shouldClearPizzaListWhenClearButtonClicked");
 
     drag("Tomato").interact(() -> dropTo("#pizzaListView"));
     drag("Mushrooms").interact(() -> dropTo("#pizzaListView"));
@@ -78,7 +78,7 @@ public class AppTest extends ApplicationTest {
   @Test
   @DisplayName("Should generate correct JSON output after selecting ingredients and options")
   public void shouldGenerateCorrectJsonOutputAfterSelections() {
-    logger.info("testJsonOutput");
+    logger.info("shouldGenerateCorrectJsonOutputAfterSelections");
 
     drag("Pineapple").interact(() -> dropTo("#pizzaListView"));
     drag("Salami").interact(() -> dropTo("#pizzaListView"));
@@ -123,7 +123,7 @@ public class AppTest extends ApplicationTest {
   @Test
   @DisplayName("Should copy generated JSON to clipboard")
   public void shouldCopyGeneratedJsonToClipboard() {
-    logger.info("testCopyButton");
+    logger.info("shouldCopyGeneratedJsonToClipboard");
 
     drag("Mushrooms").interact(() -> dropTo("#pizzaListView"));
     drag("Salami").interact(() -> dropTo("#pizzaListView"));
@@ -143,7 +143,7 @@ public class AppTest extends ApplicationTest {
   @Test
   @DisplayName("Should move selected ingredients to pizza list and back to ingredient list")
   public void shouldMoveSelectedIngredientsBetweenLists() {
-    logger.info("testMoveIngredientsBack");
+    logger.info("shouldMoveSelectedIngredientsBetweenLists");
     drag("Pineapple").interact(() -> dropTo("#pizzaListView"));
     drag("Salami").interact(() -> dropTo("#pizzaListView"));
 
@@ -160,7 +160,7 @@ public class AppTest extends ApplicationTest {
   @Test
   @DisplayName("Should not move ingredients when dragged to invalid targets")
   public void shouldNotMoveIngredientsToInvalidTargets() {
-    logger.info("shouldNotMoveIngredientsWhenTargetIsInvalid");
+    logger.info("shouldNotMoveIngredientsToInvalidTargets");
     drag("Pineapple").interact(() -> dropTo("#xButton"));
     logger.info("dragged Pineapple to xButton");
 
