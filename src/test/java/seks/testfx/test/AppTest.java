@@ -180,9 +180,9 @@ public class AppTest extends ApplicationTest {
   }
 
   @Test
-  @DisplayName("Test invalid operations")
-  public void testInvalidOperations() {
-    logger.info("testInvalidOperations");
+  @DisplayName("should not move ingredients when target is invalid")
+  public void shouldNotMoveIngredientsWhenTargetIsInvalid() {
+    logger.info("shouldNotMoveIngredientsWhenTargetIsInvalid");
     drag("Pineapple").interact(() -> dropTo("#xButton"));
     logger.info("dragged Pineapple to xButton");
 
@@ -206,5 +206,23 @@ public class AppTest extends ApplicationTest {
 
     verifyThat("#pizzaListView", ListViewMatchers.hasItems(0));
     verifyThat("#ingredientListView", ListViewMatchers.hasItems(10));
+  }
+
+  @Test
+  @DisplayName("Should move all ingredients to pizza list")
+  public void shouldMoveAllIngredientsToPizzaList() {
+    drag("Tomato").interact(() -> dropTo("#pizzaListView"));
+    drag("Mushrooms").interact(() -> dropTo("#pizzaListView"));
+    drag("Pepperoni").interact(() -> dropTo("#pizzaListView"));
+    drag("Onion").interact(() -> dropTo("#pizzaListView"));
+    drag("Bacon").interact(() -> dropTo("#pizzaListView"));
+    drag("Salami").interact(() -> dropTo("#pizzaListView"));
+    drag("Olives").interact(() -> dropTo("#pizzaListView"));
+    drag("Pineapple").interact(() -> dropTo("#pizzaListView"));
+    drag("Cheese").interact(() -> dropTo("#pizzaListView"));
+    drag("Ham").interact(() -> dropTo("#pizzaListView"));
+
+    verifyThat("#pizzaListView", ListViewMatchers.hasItems(10));
+    verifyThat("#ingredientListView", ListViewMatchers.hasItems(0));
   }
 }
