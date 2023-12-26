@@ -247,7 +247,7 @@ public class MainController {
   }
 
   @FXML
-  public void onOrderButton(){
+  public void onOrderButton() {
     logger.info("onOrderButton");
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Order");
@@ -307,17 +307,17 @@ public class MainController {
       ingrendientMultiplier = 1.50;
       price += 2.50;
     } else if (size20RadioButton.isSelected()) {
-        ingrendientMultiplier = 0.50;
+      ingrendientMultiplier = 0.50;
       price -= 2.50;
     }
     if (doubleCheckBox.isSelected()) {
-      price += 2.00;
+      price += 2.00 * ingrendientMultiplier;
     }
-    if(kebabCheckBox.isSelected()) {
-      price += 2.00;
+    if (kebabCheckBox.isSelected()) {
+      price += 2.00 * ingrendientMultiplier;
     }
-    if(cheeseCheckBox.isSelected()) {
-      price += 2.00;
+    if (cheeseCheckBox.isSelected()) {
+      price += 2.00 * ingrendientMultiplier;
     }
     price += pizzaListView.getItems().size() * ingrendientMultiplier;
     price *= countSpinner.getValue();
