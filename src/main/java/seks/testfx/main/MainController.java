@@ -234,6 +234,7 @@ public class MainController {
     icon.setIconColor(Color.RED);
     xButton.setGraphic(icon);
 
+    updatePriceLabel();
     generatePizzaJson();
   }
 
@@ -342,6 +343,6 @@ public class MainController {
     }
     price += pizzaListView.getItems().size() * ingrendientMultiplier;
     price *= countSpinner.getValue();
-    priceLabel.setText(price + "€");
+    priceLabel.setText(String.format("%.2f€", price));
   }
 }
