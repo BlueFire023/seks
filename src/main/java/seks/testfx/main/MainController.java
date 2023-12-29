@@ -73,7 +73,7 @@ public class MainController {
       logger.info("ingredientListView.setOnDragDetected");
       String ingredient = ingredientListView.getSelectionModel().getSelectedItem();
       if (ingredient != null) {
-        logger.info("Selected item: {}", ingredient);
+        logger.info("Selected item {} from ingredientListView", ingredient);
         Dragboard dragboard = ingredientListView.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.putString(ingredient);
@@ -117,7 +117,7 @@ public class MainController {
       logger.info("pizzaListView.setOnDragDetected");
       String ingredient = pizzaListView.getSelectionModel().getSelectedItem();
       if (ingredient != null) {
-        logger.info("Selected item: {}", ingredient);
+        logger.info("Selected item {} from pizzaListView", ingredient);
         Dragboard dragboard = pizzaListView.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.putString(ingredient);
@@ -240,7 +240,7 @@ public class MainController {
 
   @FXML
   public void onXButton() {
-    logger.info("onXButton");
+    logger.info("XButton clicked");
     if (!pizzaListView.getItems().isEmpty()) {
       ingredientListView.getItems().addAll(pizzaListView.getItems());
       pizzaListView.getItems().clear();
@@ -251,7 +251,7 @@ public class MainController {
 
   @FXML
   public void onCopyButton() {
-    logger.info("onCopyButton");
+    logger.info("CopyButton clicked");
     String json = resultTextArea.getText();
     Clipboard clipboard = Clipboard.getSystemClipboard();
     ClipboardContent content = new ClipboardContent();
@@ -261,7 +261,7 @@ public class MainController {
 
   @FXML
   public void onOrderButton() {
-    logger.info("onOrderButton");
+    logger.info("OrderButton clicked");
     if (nameTextField.getText().isEmpty() || zipcodeTextField.getText().isEmpty() ||
         houseNumberTextField.getText().isEmpty() || streetTextField.getText().isEmpty()) {
       Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -278,8 +278,8 @@ public class MainController {
     }
   }
 
-  public void generatePizzaJson() {
-    logger.info("generatePizzaJson");
+  private void generatePizzaJson() {
+    logger.info("generatePizzaJson: no params");
     Map<String, Object> pizza = new HashMap<>();
 
     // Add the size to the Map
@@ -322,7 +322,7 @@ public class MainController {
   }
 
   private void updatePriceLabel() {
-    logger.info("setPriceLabel");
+    logger.info("updatePriceLabel: no params");
     double price = 7.50;
     double ingrendientMultiplier = 1.00;
     if (size32RadioButton.isSelected()) {
