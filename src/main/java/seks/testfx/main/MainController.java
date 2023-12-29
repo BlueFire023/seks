@@ -210,22 +210,22 @@ public class MainController {
 
     // Set up text fields
     nameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-      logger.info("nameTextField text changed");
+      logger.info("nameTextField text changed: {} -> {}", oldValue, newValue);
       generatePizzaJson();
     });
 
     zipcodeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-      logger.info("zipcodeTextField text changed");
+      logger.info("zipcodeTextField text changed: {} -> {}", oldValue, newValue);
       generatePizzaJson();
     });
 
     houseNumberTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-      logger.info("houseNumberTextField text changed");
+      logger.info("houseNumberTextField text changed: {} -> {}", oldValue, newValue);
       generatePizzaJson();
     });
 
     streetTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-      logger.info("streetTextField text changed");
+      logger.info("streetTextField text changed: {} -> {}", oldValue, newValue);
       generatePizzaJson();
     });
 
