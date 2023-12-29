@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 public class MainController {
   private static final Logger logger = LoggerFactory.getLogger(MainController.class);
-  ToggleGroup toggleGroup = new ToggleGroup();
+  private final ToggleGroup toggleGroup = new ToggleGroup();
   @FXML
   private ListView<String> ingredientListView;
   @FXML
